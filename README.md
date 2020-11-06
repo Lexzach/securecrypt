@@ -1,6 +1,6 @@
 # SecureCrypt
 
-**If you find any bugs, please create an issue on gitgub (https://github.com/Lexzach/securecrypt/issues)**
+**If you find any bugs or want to suggest a feature, please create an issue on gitgub (https://github.com/Lexzach/securecrypt/issues)**
 
 **For usage, please visit the Wiki (https://github.com/Lexzach/securecrypt/wiki)**
 
