@@ -7,3 +7,8 @@
 REQUIREMENTS:
 - Python 3.8 (Download from Python website)
 - Cryptography for Python (pip install cryptography)
+
+Latest update (v1.1):
+- Release version
+
+For full update history, visit the Wiki.
