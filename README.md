@@ -1,5 +1,6 @@
-# securecrypt
-Completely offline secure AES encryption program. 
+# SecureCrypt
+
+**If you find any bugs, please create an issue on gitgub (https://github.com/Lexzach/securecrypt/issues)**
 
 Make sure to read the Wiki on usage!
 
