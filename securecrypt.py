@@ -4,6 +4,7 @@ import os
 import subprocess
 import sys
 
+publicKey = "5qSW6IMKejDeXqFRxHtWZqV6eaqPura7klInzwxjgtk="
 print("Copy decrypt/encrypt results to clipboard? [y/n]")
 answer = input()
 if answer == "y":
@@ -71,7 +72,7 @@ while 1==1:
     print("\__ \/ -_) _| || | '_/ -_) (__| '_| || | '_ \  _|")
     print("|___/\___\__|\_,_|_| \___|\___|_|  \_, | .__/\__|")
     print("                                   |__/|_|       ")
-    print("Made by Lexzach - v1.1")
+    print("Made by Lexzach - v1.2")
     print("")
     print("Generate Key [g] - Encrypt [e] - Decrypt [d]")
     answer = input()
@@ -79,21 +80,23 @@ while 1==1:
         key = Fernet.generate_key()
         displayKey = str(key)
         os.system('cls||clear')
-        print("Display key? [y/n]")
+        print("Display key? (The key is encrypted in the key.aes file, it will be hard to extract the key if not viewed now.) [y/n]")
         answer = input()
+        displayKey = str(displayKey[2:])
+        displayKey = str(displayKey.replace("'", ''))
         if answer == "y":
             print("")
             print("SECRET KEY:")
             print("")
-            displayKey = str(displayKey[2:])
-            displayKey = str(displayKey.replace("'", ''))
             print(displayKey)
             print("")
             print("")
             print("press enter to continue...")
-            displayKey = ""
             input()
         os.system('cls||clear')
+        coder = Fernet(publicKey)
+        displayKey = displayKey.encode()
+        key = coder.encrypt(displayKey)
         print("Write key to file? (This file will be created the same directory as this program) [y/n]")
         answer = input()
         if answer == "y":
@@ -129,9 +132,15 @@ while 1==1:
     if answer == "e":
         os.system('cls||clear')
         try:
-            file = open('key.aes','rb')
+            file = open('key.aes', 'r')
             keyFromFile = file.read()
+            keyFromFile = str(keyFromFile)
             file.close()
+            coder = Fernet(publicKey)
+            keyFromFile = keyFromFile.encode()
+            keyFromFile = str(coder.decrypt(keyFromFile))
+            keyFromFile = str(keyFromFile[2:])
+            keyFromFile = str(keyFromFile.replace("'", ''))
         except:
             print("Fatal error: No key detected.")
             print("Would you like to generate a new key? [y/n]")
@@ -140,14 +149,14 @@ while 1==1:
                 key = Fernet.generate_key()
                 displayKey = str(key)
                 os.system('cls||clear')
-                print("Display key? [y/n]")
+                print("Display key? (The key is encrypted in the key.aes file, it will be hard to extract the key if not viewed now.) [y/n]")
                 answer = input()
+                displayKey = str(displayKey[2:])
+                displayKey = str(displayKey.replace("'", ''))
                 if answer == "y":
                     print("")
                     print("SECRET KEY:")
                     print("")
-                    displayKey = str(displayKey[2:])
-                    displayKey = str(displayKey.replace("'", ''))
                     print(displayKey)
                     print("")
                     print("")
@@ -155,6 +164,9 @@ while 1==1:
                     displayKey = ""
                     input()
                 os.system('cls||clear')
+                coder = Fernet(publicKey)
+                displayKey = displayKey.encode()
+                key = coder.encrypt(displayKey)
                 print("Write key to file? (This file will be created the same directory as this program) [Y/N]")
                 answer = input()
                 if answer == "y":
@@ -189,6 +201,15 @@ while 1==1:
                         file = open('key.aes','rb')
                         keyFromFile = file.read()
                         file.close()
+                    file = open('key.aes', 'r')
+                    keyFromFile = file.read()
+                    keyFromFile = str(keyFromFile)
+                    file.close()
+                    coder = Fernet(publicKey)
+                    keyFromFile = keyFromFile.encode()
+                    keyFromFile = str(coder.decrypt(keyFromFile))
+                    keyFromFile = str(keyFromFile[2:])
+                    keyFromFile = str(keyFromFile.replace("'", ''))
             else:
                 sys.exit(0)
         os.system('cls||clear')
@@ -236,14 +257,20 @@ while 1==1:
     if answer == "d":
         os.system('cls||clear')
         try:
-            file = open('key.aes', 'rb')
+            file = open('key.aes', 'r')
             keyFromFile = file.read()
+            keyFromFile = str(keyFromFile)
             file.close()
+            coder = Fernet(publicKey)
+            keyFromFile = keyFromFile.encode()
+            keyFromFile = str(coder.decrypt(keyFromFile))
         except:
             print("Fatal error: No key detected. Relaunch program and generate a new key!")
             print("press enter to close...")
             input()
             sys.exit(0)
+        keyFromFile = str(keyFromFile[2:])
+        keyFromFile = str(keyFromFile.replace("'", ''))
         decoder = Fernet(keyFromFile)
         print("File or Text? [f/t]")
         answer = input()
@@ -252,7 +279,13 @@ while 1==1:
             print("Enter text to decrypt:")
             textToDecrypt = input()
             textToDecrypt = textToDecrypt.encode()
-            decryptedText = decoder.decrypt(textToDecrypt)
+            try:
+                decryptedText = decoder.decrypt(textToDecrypt)
+            except:
+                print("Fatal error: Invalid key!")
+                print("press enter to close...")
+                input()
+                sys.exit(0)
             decryptedText = decryptedText.decode()
             textToDecrypt = ""
             if clipboardCopy == True:
