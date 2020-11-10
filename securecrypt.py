@@ -72,7 +72,7 @@ while 1==1:
     print("\__ \/ -_) _| || | '_/ -_) (__| '_| || | '_ \  _|")
     print("|___/\___\__|\_,_|_| \___|\___|_|  \_, | .__/\__|")
     print("                                   |__/|_|       ")
-    print("Made by Lexzach - v1.2")
+    print("Made by Lexzach - v1.3")
     print("")
     print("Generate Key [g] - Encrypt [e] - Decrypt [d]")
     answer = input()
@@ -239,6 +239,8 @@ while 1==1:
             os.system('cls||clear')
             print("Enter name of file to encrypt (INCLUDING ENDING) [File must be in same directory as this program]")
             filetoEncrypt = input()
+            print("")
+            print("Encrypting file...")
             try:
                 with open(filetoEncrypt, 'rb') as f:
                     fileEncryptor = f.read()
@@ -250,8 +252,9 @@ while 1==1:
                 print("press enter to close...")
                 input()
                 sys.exit(0)
-            print("")
+            print("File encryption successful!")
             print("File created named 'encrypted." + filetoEncrypt + "' in the same directory as the program.")
+            print("")
             print("press enter to exit to main and erase all local variables...")
             input()
     if answer == "d":
@@ -306,7 +309,9 @@ while 1==1:
                     fileDecryptor = f.read()
                 try:
                     decryptedFileText = decoder.decrypt(fileDecryptor)
+                    print("Decrypting file...")
                 except:
+                    print("File decryption failed!")
                     print("Fatal error: Invalid key!")
                     print("press enter to close...")
                     input()
@@ -319,7 +324,8 @@ while 1==1:
                 print("press enter to close...")
                 input()
                 sys.exit(0)
-            print("")
+            print("File decryption successful!")
             print("File created named 'decrypted." + fileToDecrypt + "' in the same directory as the program.")
+            print("")
             print("press enter to exit to main and erase all local variables...")
             input()
