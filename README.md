@@ -6,7 +6,7 @@
 
 REQUIREMENTS:
 - Python 3.8 (Download from Python website)
-- Cryptography for Python (pip install cryptography)
+- Cryptography for Python (`pip install cryptography`)
 
 Latest update (v1.3):
 - Updated some messages to be more specific
